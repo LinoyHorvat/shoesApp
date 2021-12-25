@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import "./App.css";
-// import Avatar from "./componenets/Avatar";
-// import Input from "./componenets/Input";
-// import avatarApi from "./api";
+import ShoeCard from "./components/ShoeCard";
+import Input from "./components/Input";
+import shoesApi from "./api";
 
 class App extends Component {
-  // state = { data: [], name: "", imgUrl: "" ,update:""};
+  state = { data: [], name: "", imgUrl: "" ,update:""};
 
-  // async componentDidMount() {
-  //   const { data } = await avatarApi.get("avatars");
-  //   this.setState({ data });
-  // }
+  async componentDidMount() {
+    const { data } = await shoesApi.get("shoesApp");
+    this.setState({ data }, () => { 
+      console.log(this.state.data)
+    this.displayDataFromState()});
+  }
   // handleCreate = async () => {
   //   try {
   //     let dataCopy = [...this.state.data];
@@ -53,35 +55,37 @@ class App extends Component {
   //   this.setState({ [objProp]: e });
   // };
 
-  // displayDataFromState = () => {
-  //   const { data } = this.state;
-  //   return data.map((obj) => {
-  //     return (
-  //       <div key={obj.id}>
-  //         <Avatar
-  //           Delete={() => {
-  //             this.handleDelete(obj.id);
-  //           }}
-  //           Update={() => {
-  //             this.handleUpdate(obj.id, this.state.update);
-  //           }}
-  //           name={obj.name}
-  //           imgUrl={obj.imgUrl}
-  //         />
-  //         <Input
-  //           onChange={(e) => {
-  //             this.handleInput("update", e.target.value);
-  //           }}
-  //           label="Update"
-  //         />
-  //       </div>
-  //     );
-  //   });
-  // };
+  displayDataFromState = () => {
+    const { data } = this.state;
+    return data.map((shoe) => {
+      return (
+        <div key={shoe.id}>
+        {console.log(shoe)}
+          <ShoeCard
+            name={shoe.name}
+            size={shoe.size}
+            price={shoe.price}
+          />
+        </div>
+      );
+    });
+  };
 
   render() {
     return (
-      <div>hello!!
+      <div>
+      <h1>Shoe App</h1>
+      <Input
+      onChange={(e) => {this.handleInput("name", e.target.value);}}
+      label="name"/>
+      <Input
+      onChange={(e) => {this.handleInput("price", e.target.value);}}
+      label="price"/>
+      <Input
+      onChange={(e) => {this.handleInput("size", e.target.value);}}
+      label="size"/>
+      <button onClick={this.handleCreate}>Create</button>
+      {this.displayDataFromState()}
       </div>
     );
   }
@@ -90,17 +94,30 @@ class App extends Component {
 export default App;
 
 
-// <Input
-// onChange={(e) => {
-//   this.handleInput("name", e.target.value);
-// }}
-// label="name"
-// />
-// <Input
-// onChange={(e) => {
-//   this.handleInput("imgUrl", e.target.value);
-// }}
-// label="imgUrl"
-// />
-// <button onClick={this.handleCreate}>Create</button>
-// {this.displayDataFromState()}
+
+// displayDataFromState = () => {
+//   const { data } = this.state;
+//   return data.map((shoe) => {
+//     return (
+//       <div key={shoe.id}>
+//         <ShoeCard
+//           Delete={() => {
+//             this.handleDelete(shoe.id);
+//           }}
+//           Update={() => {
+//             this.handleUpdate(shoe.id, this.state.update);
+//           }}
+//           name={shoe.name}
+//           size={shoe.size}
+//           price={shoe.price}
+//         />
+//         <Input
+//           onChange={(e) => {
+//             this.handleInput("update", e.target.value);
+//           }}
+//           label="Update"
+//         />
+//       </div>
+//     );
+//   });
+// };

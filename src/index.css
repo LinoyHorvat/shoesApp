@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.shoeCard{
+  border: 0.5px solid black;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+button{
+  margin: 0.2em;
+  width: 100px;
+}

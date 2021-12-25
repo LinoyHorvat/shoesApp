@@ -5,7 +5,7 @@ export default class Input extends Component {
     return (
       <div>
         <label>{this.props.label}</label>
-        <input
+        <input 
           onChange={this.props.onChange}
           type="text"
           placeholder="Enter..."
